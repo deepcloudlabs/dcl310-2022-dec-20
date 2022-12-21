@@ -1,3 +1,6 @@
+import emptyDOMElement from "./utils.js";
+import GameViewModel from "./game.js";
+
 class Controller {
     #_viewModel = null;
     #_guess = document.querySelector("#guess");

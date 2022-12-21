@@ -1,4 +1,4 @@
-function emptyDOMElement(element) {
+export default function emptyDOMElement(element) {
     let node = element;
     while (element.hasChildNodes()) {
         if (node.hasChildNodes()) {

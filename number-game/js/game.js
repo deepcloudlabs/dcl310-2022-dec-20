@@ -1,4 +1,6 @@
-class GameViewModel {
+import Move from "./move.js";
+
+export default class GameViewModel {
     #_secret;
     #_guess;
     #_movesLeft;

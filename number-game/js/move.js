@@ -1,4 +1,4 @@
-class Move { // immutable class
+export default class Move { // immutable class
     #_step;
     #_guess;
     #_message;
