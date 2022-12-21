@@ -1,21 +1,20 @@
-import emptyDOMElement from "./utils.js";
 import GameViewModel from "./game.js";
 
 class Controller {
     #_viewModel = null;
-    #_guess = document.querySelector("#guess");
-    #_tries = document.querySelector("#tries");
-    #_timeLeft = document.querySelector("#timeout");
-    #_playButton = document.querySelector("#play");
-    #_movesBody = document.querySelector("#moves");
+    #_guess = $("#guess");
+    #_tries = $("#tries");
+    #_timeLeft = $("#timeout");
+    #_playButton = $("#play");
+    #_movesBody = $("#moves");
     #_timer = null;
 
     constructor(viewModel) {
         this.#_viewModel = viewModel;
-        this.#_guess.addEventListener('change', (event) => {
-            this.#_viewModel.guess = Number(event.target.value);
+        this.#_guess.change(() => {
+            this.#_viewModel.guess = Number(this.#_guess.val());
         });
-        this.#_playButton.addEventListener('click', (event) => {
+        this.#_playButton.click((event) => {
             this.#_viewModel.play();
             this.#updateView();
         });
@@ -26,17 +25,18 @@ class Controller {
     }
 
     #updateView() {
-        this.#_tries.innerText = this.#_viewModel.movesLeft;
-        this.#_timeLeft.innerText = this.#_viewModel.timeLeft;
-        emptyDOMElement(this.#_movesBody);
+        this.#_tries.text(this.#_viewModel.movesLeft);
+        this.#_timeLeft.text(this.#_viewModel.timeLeft);
+        this.#_movesBody.empty();
         for (let move of this.#_viewModel.moves) {
-            const row = this.#_movesBody.insertRow();
-            const cellNo = row.insertCell(0);
-            cellNo.appendChild(document.createTextNode(move.step));
-            const cellGuess = row.insertCell(1);
-            cellGuess.appendChild(document.createTextNode(move.guess));
-            const cellMessage = row.insertCell(2);
-            cellMessage.appendChild(document.createTextNode(move.message));
+            this.#_movesBody.append(
+                `<tr>
+                   <td>${move.step}</td>
+                   <td>${move.guess}</td>
+                   <td>${move.message}</td>
+                 </tr>
+                `
+            );
         }
     }
 };
