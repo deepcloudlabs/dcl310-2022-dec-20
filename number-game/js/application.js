@@ -4,6 +4,7 @@ class Application {
     #_tries = document.querySelector("#tries");
     #_timeLeft = document.querySelector("#timeout");
     #_playButton = document.querySelector("#play");
+    #_movesBody = document.querySelector("#moves");
     #_timer = null;
 
     constructor(viewModel) {
@@ -24,6 +25,16 @@ class Application {
     #updateView() {
         this.#_tries.innerText = this.#_viewModel.movesLeft;
         this.#_timeLeft.innerText = this.#_viewModel.timeLeft;
+        emptyDOMElement(this.#_movesBody);
+        for (let move of this.#_viewModel.moves){
+            const row = this.#_movesBody.insertRow();
+            const cellNo= row.insertCell(0);
+            cellNo.appendChild(document.createTextNode(move.step));
+            const cellGuess=row.insertCell(1);
+            cellGuess.appendChild(document.createTextNode(move.guess));
+            const cellMessage=row.insertCell(2);
+            cellMessage.appendChild(document.createTextNode(move.message));
+        }
     }
 };
 
