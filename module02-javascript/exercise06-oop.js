@@ -7,6 +7,7 @@ function Customer(identity, fullname, email, sms) {
     this.sendSmsMessage = function (message) {
         console.log(`Sending an sms message \"${message}\" to ${this.sms}`)
     }
+
 }
 
 let jack = new Customer("1", "jack bauer", "jack@example.com", "+90-555-555-5555");

@@ -2,6 +2,7 @@ let numbers = [42, 15, 23, 8, 16, 4]
 console.log(numbers)
 // Higher-Order Function
 // Pure Function: Lambda Expression
+numbers.sort(function(x, y) {return x - y;})
 numbers.sort((x, y) => x - y)
 console.log(numbers)
 numbers.sort((x, y) => y - x)
