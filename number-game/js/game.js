@@ -33,9 +33,30 @@ class GameViewModel {
     set guess(value) {
         this.#_guess = Number(value);
     }
+
     //endregion
 
-    
+    play = () => {
+        this.#_movesLeft--;
+        if (this.#_guess === this.#_secret) {
+            //TODO: Player wins the game
+        } else {
+            if (this.#_movesLeft === 0) {
+                //TODO: Player loses the game
+            } else {
+                let message = "Pick smaller one!";
+                if (this.#_guess < this.#_secret) {
+                    message = "Pick larger one!"
+                }
+                let move = new Move(
+                    7 - this.#_movesLeft,
+                    this.#_guess,
+                    message);
+                this.#_moves.push(move);
+            }
+        }
+    }
+
     #createSecret() {
         return Math.floor(100 * Math.random()) + 1;
     }
