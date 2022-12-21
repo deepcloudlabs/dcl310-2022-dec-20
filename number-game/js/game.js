@@ -60,4 +60,11 @@ class GameViewModel {
     #createSecret() {
         return Math.floor(100 * Math.random()) + 1;
     }
+
+    countDown() {
+        this.#_timeLeft--;
+        if (this.#_timeLeft <= 0){
+           //TODO: Player loses the game
+        }
+    }
 }
