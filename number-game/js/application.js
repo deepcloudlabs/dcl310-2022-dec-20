@@ -1,4 +1,4 @@
-class Application {
+class Controller {
     #_viewModel = null;
     #_guess = document.querySelector("#guess");
     #_tries = document.querySelector("#tries");
@@ -40,5 +40,5 @@ class Application {
 
 window.onload = () => {
     const viewModel = new GameViewModel();
-    const application = new Application(viewModel);
+    const controller = new Controller(viewModel);
 }

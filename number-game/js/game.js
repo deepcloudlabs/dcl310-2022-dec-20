@@ -39,10 +39,10 @@ class GameViewModel {
     play = () => {
         this.#_movesLeft--;
         if (this.#_guess === this.#_secret) {
-            //TODO: Player wins the game
+            this.#initGame(true);
         } else {
             if (this.#_movesLeft === 0) {
-                //TODO: Player loses the game
+                this.#initGame(false);
             } else {
                 let message = "Pick smaller one!";
                 if (this.#_guess < this.#_secret) {
@@ -64,7 +64,21 @@ class GameViewModel {
     countDown() {
         this.#_timeLeft--;
         if (this.#_timeLeft <= 0){
-           //TODO: Player loses the game
+            this.#initGame(false);
         }
+    }
+
+    #initGame(wins) {
+        let move= null;
+        if (wins){
+            move=new Move("",this.#_secret,"You win.");
+        } else {
+            move=new Move("",this.#_secret,"You lose.");
+        }
+        this.#_moves = [];
+        this.#_moves.push(move);
+        this.#_secret = this.#createSecret();
+        this.#_timeLeft = 60;
+        this.#_movesLeft = 7;
     }
 }
