@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter</title>
+    <script type="text/javascript">
+        // Event-Driven + Asynchronous/Non-blocking Programming
+        // Event Queue --> JS Engine -> Single Execution Thread -> Event Loop
+        // Event -- register --> Callback Function (updateModel)
+        // Timeout Event --> updateModel
+        // setInterval() : Asynchronous Function
+        function application(){
+            let counter = 0; // Model
+            const spanCounter = document.querySelector("#counter");
+            const resetButton = document.querySelector("#resetButton");
+            resetButton.addEventListener('click',
+                function(event){// Callback <-- Click Event
+                    counter=0;
+                    spanCounter.innerText = counter.toString();
+                }
+            );
+            function updateModel(){ // Controller
+                counter++; // Update Model
+                // Error: Cannot set properties of null (setting 'innerText')
+                spanCounter.innerText = counter.toString();  // using DOM API
+            };
+            setInterval(updateModel, 1_000); // every second
+        }
+        window.onload = application
+    </script>
+</head>
+<body>
+    <h4>Counter: <span id="counter">0</span> <button id="resetButton">Reset</button></h4> <!-- View -->
+</body>
+</html>
