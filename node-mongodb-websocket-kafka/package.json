@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "middleware": "node server.js",
-    "exercise01": "set UV_THREADPOOL_SIZE=48 & node exercise01.js"
+    "exercise01": "set UV_THREADPOOL_SIZE=48 & node exercise01.js",
+    "websocket-server": "node websocket-server.js"
   },
   "dependencies": {
-     "ws": "~8.11.0",
-     "mongoose": "^6.8.1",
-     "node-fetch": "^3.3.0"
+    "ws": "~8.11.0",
+    "mongoose": "^6.8.1",
+    "kafkajs": "^2.2.3",
+    "node-fetch": "^3.3.0"
   },
-  "keywords": ["kafka", "mongo", "websocket"],
+  "keywords": [
+    "kafka",
+    "mongo",
+    "websocket"
+  ],
   "author": "Binnur Kurt <binnur.kurt@gmail.com>",
   "license": "MIT"
 }
