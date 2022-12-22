@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socketio Web Client</title>
+    <script src="Chart.bundle.js"></script>
+    <script src="knockout-3.4.2.debug.js"></script>
+    <script src="ko-chart.js"></script>
+    <script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        const client = io.connect("http://localhost:4100");
+        class ViewModel {
+            constructor() {
+                this.trades = ko.observableArray([]);
+                this.data = {
+                    labels: ko.observableArray([]),
+                    datasets: [
+                        {
+                            label: ['BTCUSDT'],
+                            backgroundColor: "rgba(220,220,220,0.2)",
+                            borderColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: ko.observableArray([])
+                        }
+                    ]
+                };
+            }
+        }
+        const model = new ViewModel();
+        window.onload = () => {ko.applyBindings(model);}
+        client.on("connect",()=>{
+            console.log("Connected to the server");
+            client.on("trades", (msg)=>{
+                const trade = JSON.parse(msg);
+                model.trades.push(trade);
+                if (model.trades().length > 50) {
+                    let sliceIndex = model.trades().length - 50;
+                    model.trades(model.trades.slice(sliceIndex));
+                }
+                model.data.datasets[0].data.push(trade.price);
+                let now = new Date().toTimeString();
+                now = now.replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
+                model.data.labels.push(now);
+                if (model.data.datasets[0].data().length > 50) {
+                    let sliceIndex = model.data.datasets[0].data().length - 50;
+                    model.data.datasets[0].data(
+                        model.data.datasets[0].data.slice(sliceIndex)
+                    );
+                    model.data.labels(model.data.labels.slice(sliceIndex));
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <canvas data-bind="chart: { type: 'line', data: data, options: { observeChanges: true, throttle: 100, animation: { duration: 0} } }"></canvas>
+    <table>
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: {data: trades, as: 'trade'}">
+            <tr>
+                <td data-bind="text: trade.symbol"></td>
+                <td data-bind="text: trade.price"></td>
+                <td data-bind="text: trade.quantity"></td>
+                <td data-bind="text: trade.volume"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
