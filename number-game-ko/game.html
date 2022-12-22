@@ -7,9 +7,10 @@
         @import url("/css/bootstrap.css");
     </style>
     <script type="module" src="js/jquery-3.6.3.js"></script>
-    <script type="module" src="js/application.js"></script>
-    <script type="module" src="js/game.js"></script>
-    <script type="module" src="js/move.js"></script>
+    <script type="module"  src="js/knockout-3.5.1.debug.js"></script>
+    <script type="module"  src="js/move.js"></script>
+    <script type="module"  src="js/game.js"></script>
+    <script type="module"  src="js/application.js"></script>
 </head>
 <body>
     <p></p>
@@ -21,19 +22,20 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="tries" class="form-label">Moves left: </label>
-                    <span id="tries" class="badge bg-info">7</span>
+                    <span id="tries" class="badge bg-info" data-bind="text: movesLeft"></span>
                 </div>
                 <div class="mb-3">
                     <label for="timeout" class="form-label">Time left: </label>
-                    <span id="timeout" class="badge bg-danger">60</span>
+                    <span id="timeout" class="badge bg-danger" data-bind="text: timeLeft"></span>
                 </div>
                 <div class="mb-3">
                     <label for="guess" class="form-label">Guess: </label>
                     <input type="text"
                            id="guess"
                            value="50"
-                           class="form-control"></input>
-                    <button id="play" class="btn btn-success">Play</button>
+                           data-bind="value: guess"
+                           class="form-control">
+                    <button id="play" class="btn btn-success" data-bind="click: play">Play</button>
                 </div>
                 <div class="mb-3">
                     <table class="table table-hover table-bordered table-striped table-responsive">
@@ -44,8 +46,12 @@
                                 <th>Message</th>
                             </tr>
                         </thead>
-                        <tbody id="moves">
-
+                        <tbody id="moves" data-bind="foreach: {data: moves, as: 'move'}">
+                                <tr>
+                                   <td data-bind="text: move.step"></td>
+                                   <td data-bind="text: move.guess"></td>
+                                   <td data-bind="text: move.message"></td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
