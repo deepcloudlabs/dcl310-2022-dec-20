@@ -6,13 +6,16 @@
   "scripts": {
     "middleware": "node server.js",
     "exercise01": "set UV_THREADPOOL_SIZE=48 & node exercise01.js",
-    "websocket-server": "node websocket-server.js"
+    "websocket-server": "node websocket-server.js",
+    "socketio-client": "node binance-websocketio-client.js"
   },
   "dependencies": {
     "ws": "~8.11.0",
     "mongoose": "^6.8.1",
     "kafkajs": "^2.2.3",
-    "node-fetch": "^3.3.0"
+    "node-fetch": "^3.3.0",
+    "socket.io": "^4.5.4",
+    "socket.io-client": "^4.5.4"
   },
   "keywords": [
     "kafka",

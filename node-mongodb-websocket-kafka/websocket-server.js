@@ -6,6 +6,18 @@ const kafka = new Kafka({
 const consumer = kafka.consumer({
     "groupId": "binance-consumer"
 });
+const {Server} = require("socket.io");
+const io = new Server(4100);
+let sessions = [];
+io.on("connection",(session)=>{
+    console.log(`New client has arrived: ${session.id}`)
+    sessions.push(session);
+    io.on("disconnect", () =>{
+        console.log(`Connection is closed: ${session.id}`);
+        sessions = sessions.filter(_session => _session.id !== session.id);
+    })
+});
+
 consumer.connect()
         .then(()=>{
             console.log("Connected to the kafka broker.");
