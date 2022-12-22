@@ -11,9 +11,9 @@ $(document).ready(function () {
         let tbody = table.find('tbody');
         tbody.find('tr').sort(
             function (p, q) {
-                const pval = $('td:eq(' + index + ')', p).text().trim();
-                const qval = $('td:eq(' + index + ')', q).text().trim();
-                return compareFunction(pval, qval);
+                const pVal = $('td:eq(' + index + ')', p).text().trim();
+                const qVal = $('td:eq(' + index + ')', q).text().trim();
+                return compareFunction(pVal, qVal);
             }
         ).appendTo(tbody);
     }

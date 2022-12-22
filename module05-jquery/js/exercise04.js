@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     const columns = {
         'No': 0,
         'Title': 1,
