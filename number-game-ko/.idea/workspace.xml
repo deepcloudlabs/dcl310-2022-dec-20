@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f1b1108f-bf32-4a89-8f26-5cc00a2c49e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../module02-javascript/exercise17.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../module02-javascript/exercise18.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.html" beforeDir="false" afterPath="$PROJECT_DIR$/game.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/move.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/move.js" afterDir="false" />
-    </list>
+    <list default="true" id="f1b1108f-bf32-4a89-8f26-5cc00a2c49e7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +44,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1671689322440</updated>
-      <workItem from="1671689323729" duration="2733000" />
+      <workItem from="1671689323729" duration="2854000" />
     </task>
     <servers />
   </component>

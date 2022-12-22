@@ -1,0 +1,17 @@
+{
+  "name": "mongodb-websocket-kafka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "middleware": "node server.js"
+  },
+  "dependencies": {
+     "ws": "8.11.0",
+     "mongoose": "^6.8.1",
+     "node-fetch": "^3.3.0"
+  },
+  "keywords": ["kafka", "mongo", "websocket"],
+  "author": "Binnur Kurt <binnur.kurt@gmail.com>",
+  "license": "MIT"
+}
