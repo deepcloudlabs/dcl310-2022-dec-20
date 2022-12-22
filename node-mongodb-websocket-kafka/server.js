@@ -30,7 +30,7 @@ async function app() {
                         {"key": trade.s, "value": JSON.stringify(message)}
                     ]
                 })
-                console.log(frame.toString());
+                //console.log(frame.toString());
             });
         })
         .catch(err => console.error(err))

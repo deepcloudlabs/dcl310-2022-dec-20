@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "middleware": "node server.js",
-    "exercise01": "set UV_THREADPOOL_SIZE=48 & node exercise01.js",
-    "websocket-server": "node websocket-server.js",
+    "middleware": "set UV_THREADPOOL_SIZE=48 & node server.js",
+    "exercise01": "node exercise01.js",
+    "websocket-server": "set UV_THREADPOOL_SIZE=48 & node websocket-server.js",
     "socketio-client": "node binance-websocketio-client.js"
   },
   "dependencies": {

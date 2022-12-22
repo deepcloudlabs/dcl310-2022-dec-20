@@ -25,7 +25,7 @@ consumer.connect()
                 .then(()=>{
                     consumer.run({
                         eachMessage: async ({topic,partition,message})=> {
-                            console.log(`New message has arrived: ${message.value}`);
+                            //console.log(`New message has arrived: ${message.value}`);
                             sessions.forEach(session => session.emit("trades",message.value.toString()));
                         }
                     }).then(()=>{
