@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const {Customer} = require("../persistence/schema");
+const {sessions} = require("../integration/websocket");
 const router = Router();
 const updatableFields = ["photo", "email", "phones"];
 
@@ -12,6 +13,7 @@ router.post("/crm/api/v1/customers",(req,res)=> {
         if (err){
             res.status(400).send({"reason": err});
         } else {
+            sessions.forEach(session => session.emit("customer-events",{eventType: "CUSTOMER_ACQUIRED", eventData: customerBody}));
             res.status(200).send({"status": "OK"});
         }
     });
@@ -58,11 +60,12 @@ router.delete("/crm/api/v1/customers/:identity",(req,res)=> {
     Customer.findOneAndDelete(
         {_id: identity},
         {},
-        (err,employee)=>{
-            if(employee ==null){
+        (err,customer)=>{
+            if(customer ==null){
                 res.status(404).send({reason: "cannot find customer to delete."});
             } else {
-                res.status(200).send(employee);
+                sessions.forEach(session => session.emit("customer-events",{eventType: "CUSTOMER_RELEASED", eventData: customer}));
+                res.status(200).send(customer);
             }
         }
     )

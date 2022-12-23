@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "service": "nodemon server.js"
+    "service": "nodemon server.js",
+    "ws-client": "node client/crm-ws-client.js"
   },
   "dependencies": {
     "amqplib": "^0.10.3",
