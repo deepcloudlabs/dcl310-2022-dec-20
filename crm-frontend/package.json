@@ -1,0 +1,10 @@
+{
+  "name": "crm-frontend",
+  "version": "1.0.0",
+  "dependencies": {
+    "knockout": "^3.5.1",
+    "socket.io-client": "^4.5.4",
+    "bootstrap": "^5.2.3",
+    "toastr": "^2.1.4"
+  }
+}
