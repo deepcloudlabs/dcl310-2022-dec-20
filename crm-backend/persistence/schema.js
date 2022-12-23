@@ -26,7 +26,6 @@ const customerSchema = new mongoose.Schema({
     "_id": {
         type: String,
         required: true,
-        unique: true,
         validate: [tcKimlikNoValidator, "You must provide a valid Identity No."]
     },
     "firstName": {

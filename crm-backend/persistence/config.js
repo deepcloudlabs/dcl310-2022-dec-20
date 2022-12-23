@@ -6,7 +6,7 @@ const mongoOpts = {
     keepAlive: true,
     useUnifiedTopology: true
 };
-const mongoDbConnectionUrl = "mongodb://localhost:27017/crmdb"
+const mongoDbConnectionUrl = "mongodb://127.0.0.1:27017/crmdb"
 
 mongoose.set('strictQuery', true);
 
