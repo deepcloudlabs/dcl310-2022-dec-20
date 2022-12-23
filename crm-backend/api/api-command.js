@@ -13,7 +13,7 @@ router.post("/crm/api/v1/customers",(req,res)=> {
         if (err){
             res.status(400).send({"reason": err});
         } else {
-            sessions.forEach(session => session.emit("customer-events",{eventType: "CUSTOMER_ACQUIRED", eventData: customerBody}));
+            sessions.forEach(session => session.emit("customer-events",JSON.stringify({eventType: "CUSTOMER_ACQUIRED", eventData: customerBody})));
             res.status(200).send({"status": "OK"});
         }
     });
@@ -64,7 +64,7 @@ router.delete("/crm/api/v1/customers/:identity",(req,res)=> {
             if(customer ==null){
                 res.status(404).send({reason: "cannot find customer to delete."});
             } else {
-                sessions.forEach(session => session.emit("customer-events",{eventType: "CUSTOMER_RELEASED", eventData: customer}));
+                sessions.forEach(session => session.emit("customer-events",JSON.stringify({eventType: "CUSTOMER_RELEASED", eventData: customer})));
                 res.status(200).send(customer);
             }
         }

@@ -16,6 +16,22 @@ class CrmViewModel {
         this.#_fileData = ko.observable({
             dataUrl: ko.observable(AppConfig.NO_IMAGE)
         });
+        const client = io.connect("http://localhost:8200");
+        client.on("connect",()=>{
+            console.log("Connected to the server");
+            client.on("customer-events", (msg)=>{
+                const event = JSON.parse(msg);
+                switch (event.eventType) {
+                    case "CUSTOMER_ACQUIRED":
+                        this.customers.push(event.eventData);
+                        break;
+                    case "CUSTOMER_RELEASED":
+                        const emp = event.eventData;
+                        this.customers(this.customers().filter(c => c._id != emp._id));
+                        break;
+                }
+            });
+        });
     }
 
     get customers() {
