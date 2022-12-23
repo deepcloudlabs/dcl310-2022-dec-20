@@ -1,6 +1,2 @@
-var crmViewModel = new CrmViewModel();
-$(
-    () => {
-        ko.applyBindings(crmViewModel);
-    }
-);
+let crmViewModel = new CrmViewModel();
+window.onload = () => ko.applyBindings(crmViewModel);
