@@ -15,6 +15,16 @@ class Customer {
         this.#_phones = ko.observable(phones);
     }
 
+    toJSON = () => {
+        return JSON.stringify({
+            _id: this.id(),
+            firstName: this.firstName(),
+            lastName: this.lastName(),
+            photo: this.photo(),
+            email: this.email(),
+            phones: this.phones(),
+        });
+    }
     get id() {
         return this.#_id;
     }

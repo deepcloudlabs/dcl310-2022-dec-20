@@ -60,13 +60,16 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="photo">Photo</label>
-                    <img style="width: 64px; height: 64px;"/>
+                    <img data-bind="attr: {src: fileData().dataUrl}"
+                         style="width: 64px; height: 64px;"/>
                     <input type="file"
                            id="photo"
+                           data-bind="fileInput: fileData"
                            class="form-control"/>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-info">Add</button>
+                    <button data-bind="click: addCustomer"
+                            class="btn btn-info">Add</button>
                     <button class="btn btn-warning">Update</button>
                     <button class="btn btn-danger">Delete</button>
                     <button class="btn btn-success">Find</button>
