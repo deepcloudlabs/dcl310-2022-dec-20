@@ -18,12 +18,11 @@ router.post("/crm/api/v1/customers",(req,res)=> {
 });
 //endregion
 
-//region PUT http://localhost:8100/crm/api/v1/customers/11111111110
-router.put("/crm/api/v1/customers/:identity",(req,res)=> {
+function updateCustomer(req, res) {
     const identity = req.params.identity;
     const customerBody = req.body;
     const updatedCustomer = {};
-    for (let prop in customerBody){
+    for (let prop in customerBody) {
         if (updatableFields.includes(prop))
             updatedCustomer[prop] = customerBody[prop];
     }
@@ -31,25 +30,42 @@ router.put("/crm/api/v1/customers/:identity",(req,res)=> {
         {_id: identity},
         {$set: updatedCustomer},
         {upsert: false},
-        (err,result)=>{
-        res.set("Content-Type","application/json");
-        if (err){
-            res.status(404).send({"reason": err});
-        } else {
-            res.status(200).send({"status": "OK"});
-        }
-    });
+        (err, result) => {
+            res.set("Content-Type", "application/json");
+            if (err) {
+                res.status(404).send({"reason": err});
+            } else {
+                res.status(200).send({"status": "OK"});
+            }
+        });
+}
 
+//region PUT http://localhost:8100/crm/api/v1/customers/11111111110
+router.put("/crm/api/v1/customers/:identity",(req,res)=> {
+    updateCustomer(req, res);
 });
 //endregion
 
 //region PATCH http://localhost:8100/crm/api/v1/customers/11111111110
 router.patch("/crm/api/v1/customers/:identity",(req,res)=> {
+    updateCustomer(req, res);
 });
 //endregion
 
 //region DELETE http://localhost:8100/crm/api/v1/customers/11111111110
 router.delete("/crm/api/v1/customers/:identity",(req,res)=> {
+    const identity = req.params.identity;
+    Customer.findOneAndDelete(
+        {_id: identity},
+        {},
+        (err,employee)=>{
+            if(employee ==null){
+                res.status(404).send({reason: "cannot find customer to delete."});
+            } else {
+                res.status(200).send(employee);
+            }
+        }
+    )
 });
 //endregion
 
