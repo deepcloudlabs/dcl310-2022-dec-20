@@ -6,6 +6,8 @@ const {api} = require("./api/api-config");
 const {apiQuery} = require("./api/api-query");
 const {apiCommand} = require("./api/api-command");
 
+require("./api/api-doc");
+
 api.use("/", apiQuery);
 api.use("/", apiCommand);
 
