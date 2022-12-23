@@ -50,9 +50,13 @@ router.get("/crm/api/v1/customers",(req,res)=>{
     const page = req.query.page || 0;
     const size = req.query.size || 10;
     const offset = page * size;
+    const withPhoto= req.query.photo || false;
+    const projection = {};
+    if (!withPhoto)
+        projection.photo = false;
     Customer.find(
         {},
-        {"photo": false},
+        projection,
         { skip: offset, limit: size},
         function(err,customers){
             if (err){

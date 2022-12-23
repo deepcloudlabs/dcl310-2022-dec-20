@@ -25,6 +25,7 @@ class Customer {
             phones: this.phones(),
         });
     }
+
     get id() {
         return this.#_id;
     }
@@ -47,5 +48,14 @@ class Customer {
 
     get phones() {
         return this.#_phones;
+    }
+
+    update = (customer) => {
+        this.id(customer._id);
+        this.firstName(customer.firstName);
+        this.lastName(customer.lastName);
+        this.email(customer.email);
+        this.photo(customer.phone);
+        this.phones(customer.phones);
     }
 }

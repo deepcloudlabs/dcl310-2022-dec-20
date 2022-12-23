@@ -70,10 +70,14 @@
                 <div class="mb-3">
                     <button data-bind="click: addCustomer"
                             class="btn btn-info">Add</button>
-                    <button class="btn btn-warning">Update</button>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-success">Find</button>
-                    <button class="btn btn-success">Find All</button>
+                    <button data-bind="click: updateCustomer"
+                            class="btn btn-warning">Update</button>
+                    <button data-bind="click: removeCustomer"
+                            class="btn btn-danger">Delete</button>
+                    <button data-bind="click: retrieveCustomer"
+                            class="btn btn-success">Find</button>
+                    <button data-bind="click: retrieveAllCustomers"
+                            class="btn btn-success">Find All</button>
                 </div>
             </div>
         </div>
@@ -93,14 +97,16 @@
                             <th>Operations</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><button class="btn btn-danger">Delete</button> </td>
+                    <tbody data-bind="foreach: {data: customers, as: 'cust'}">
+                        <tr data-bind="click: $root.copyCustomerAtRow">
+                            <td> <img data-bind="attr: {src: cust.photo}"
+                                      style="width: 32px; height: 32px;"/></td>
+                            <td data-bind="text: cust._id"></td>
+                            <td data-bind="text: cust.firstName"></td>
+                            <td data-bind="text: cust.lastName"></td>
+                            <td data-bind="text: cust.email"></td>
+                            <td><button data-bind="click: $root.removeCustomerByRow"
+                                    class="btn btn-danger">Delete</button> </td>
                         </tr>
                     </tbody>
                 </table>

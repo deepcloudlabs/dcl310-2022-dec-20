@@ -1,6 +1,7 @@
 class CrmViewModel {
     #_customer;
     #_fileData;
+    #_customers;
 
     constructor() {
         this.#_customer = new Customer({
@@ -11,14 +12,73 @@ class CrmViewModel {
             photo: AppConfig.NO_IMAGE,
             phones: []
         });
+        this.#_customers = ko.observableArray([]);
         this.#_fileData = ko.observable({
             dataUrl: ko.observable(AppConfig.NO_IMAGE)
         });
     }
 
+    get customers() {
+        return this.#_customers;
+    }
+
+    retrieveAllCustomers = () => {
+        fetch(`${AppConfig.REST_API_BASE_URL}/customers?photo=true`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        }).then(res => res.json())
+            .then(customers => this.customers(customers))
+    }
+    copyCustomerAtRow = (customerAtRow) => {
+        this.#_customer.update(customerAtRow);
+        this.#_fileData().dataUrl(customerAtRow.photo);
+    }
+
+    retrieveCustomer = () => {
+        fetch(`${AppConfig.REST_API_BASE_URL}/customers/${this.#_customer.id()}?photo=true`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        }).then(res => res.json())
+            .then(cust => {
+                this.#_customer.update(cust);
+                this.#_fileData().dataUrl(cust.photo);
+            })
+    }
+
+    removeCustomer = () => {
+        fetch(`${AppConfig.REST_API_BASE_URL}/customers/${this.#_customer.id()}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json"
+            }
+        }).then(res => res.json())
+            .then(cust => {
+                this.#_customer.update(cust);
+                this.#_fileData().dataUrl(cust.photo);
+            })
+    }
+
+    removeCustomerByRow = (customerAtRow) => {
+        fetch(`${AppConfig.REST_API_BASE_URL}/customers/${customerAtRow._id}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json"
+            }
+        }).then(res => res.json())
+            .then(cust => {
+                this.#_customer.update(cust);
+                this.#_fileData().dataUrl(cust.photo);
+                this.customers(this.customers().filter(c => c._id != cust._id));
+            })
+    }
+
     addCustomer = () => {
         this.#_customer.photo(this.#_fileData().dataUrl());
-        fetch(`${AppConfig.REST_API_BASE_URL}/customers`,{
+        fetch(`${AppConfig.REST_API_BASE_URL}/customers`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -26,12 +86,28 @@ class CrmViewModel {
                 },
                 body: this.#_customer.toJSON()
             }
-        ).then(res=>res.json())
-            .then(() => alert("Customer is acquired!"))
+        ).then(res => res.json())
+            .then(console.log)
     }
+
+    updateCustomer = () => {
+        this.#_customer.photo(this.#_fileData().dataUrl());
+        fetch(`${AppConfig.REST_API_BASE_URL}/customers/${this.#_customer.id()}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: this.#_customer.toJSON()
+            }
+        ).then(res => res.json())
+            .then(this.retrieveAllCustomers)
+    }
+
     get customer() {
         return this.#_customer;
     }
+
     get fileData() {
         return this.#_fileData;
     }
