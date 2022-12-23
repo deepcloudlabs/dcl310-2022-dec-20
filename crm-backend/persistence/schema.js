@@ -32,11 +32,13 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true,
         minLength: 2
+    //    immutable: true
     },
     "lastName": {
         type: String,
         required: true,
         minLength: 2
+//        immutable: true
     },
     "email": {
         type: String,
